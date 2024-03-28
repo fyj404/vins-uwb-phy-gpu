@@ -65,6 +65,10 @@ Eigen::Matrix<double,7,1>sigma_vins_6dof;
 int USE_LONG_WINDOW;
 double LINK_W,MOVE_W;
 int USE_LOOSE;
+int USE_GPU;
+int USE_GPU_ACC_FLOW;
+
+
 template <typename T>
 T readParam(ros::NodeHandle &n, std::string name)
 {
@@ -125,7 +129,8 @@ void readParameters(std::string config_file)
     NUM_ITERATIONS = fsSettings["max_num_iterations"];
     MIN_PARALLAX = fsSettings["keyframe_parallax"];
     MIN_PARALLAX = MIN_PARALLAX / FOCAL_LENGTH;
-
+    USE_GPU = fsSettings["use_gpu"];
+    USE_GPU_ACC_FLOW = fsSettings["use_gpu_acc_flow"];
     fsSettings["output_path"] >> OUTPUT_FOLDER;
     VINS_RESULT_PATH = OUTPUT_FOLDER + "/vio.csv";
     std::cout << "result path " << VINS_RESULT_PATH << std::endl;

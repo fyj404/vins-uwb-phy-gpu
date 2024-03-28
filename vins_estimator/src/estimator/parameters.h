@@ -90,6 +90,9 @@ extern int USE_EXR;
 extern int USE_LONG_WINDOW;
 extern double LINK_W,MOVE_W;
 extern int USE_LOOSE;
+extern int USE_GPU;
+extern int USE_GPU_ACC_FLOW;
+
 void readParameters(std::string config_file);
 
 enum SIZE_PARAMETERIZATION
