@@ -693,35 +693,35 @@ void FeatureManager::removeBackShiftDepth(Eigen::Matrix3d marg_R, Eigen::Vector3
         }
         */
     }
-    if(USELINE){
-        for (auto it = feature_line.begin(), it_next = feature_line.begin();
-         it != feature_line.end(); it = it_next)
-        {
-            it_next++;
+    // if(USELINE){
+    //     for (auto it = feature_line.begin(), it_next = feature_line.begin();
+    //      it != feature_line.end(); it = it_next)
+    //     {
+    //         it_next++;
 
-            if (it->start_frame != 0)    // 如果特征不是在这帧上初始化的，那就不用管，只要管id--
-            {
-                it->start_frame--;
-            }
-            else{
-                it->feature_line_per_frame.erase(it->feature_line_per_frame.begin());  // 移除观测
-                if (it->feature_line_per_frame.size() <= 0)                     // 如果观测到这个帧的图像少于两帧，那这个特征不要了
-                {
-                    feature_line.erase(it);
-                    continue;
-                }
-                else  // 如果还有很多帧看到它，而我们又把这个特征的初始化帧给marg掉了，那就得把这个特征转挂到下一帧上去, 这里 marg_R, new_R 都是相应时刻的相机坐标系到世界坐标系的变换
-                {
-                    it->removed_cnt++;
-                    // transpose this line to the new pose
-                    Matrix3d Rji = new_R.transpose() * marg_R;     // Rcjw * Rwci
-                    Vector3d tji = new_R.transpose() * (marg_P - new_P);
-                    Vector6d plk_j = Utility::plk_to_pose(it->line_plucker, Rji, tji);
-                    it->line_plucker = plk_j;
-                }
-            }
-        }
-    }
+    //         if (it->start_frame != 0)    // 如果特征不是在这帧上初始化的，那就不用管，只要管id--
+    //         {
+    //             it->start_frame--;
+    //         }
+    //         else{
+    //             it->feature_line_per_frame.erase(it->feature_line_per_frame.begin());  // 移除观测
+    //             if (it->feature_line_per_frame.size() <= 0)                     // 如果观测到这个帧的图像少于两帧，那这个特征不要了
+    //             {
+    //                 feature_line.erase(it);
+    //                 continue;
+    //             }
+    //             else  // 如果还有很多帧看到它，而我们又把这个特征的初始化帧给marg掉了，那就得把这个特征转挂到下一帧上去, 这里 marg_R, new_R 都是相应时刻的相机坐标系到世界坐标系的变换
+    //             {
+    //                 it->removed_cnt++;
+    //                 // transpose this line to the new pose
+    //                 Matrix3d Rji = new_R.transpose() * marg_R;     // Rcjw * Rwci
+    //                 Vector3d tji = new_R.transpose() * (marg_P - new_P);
+    //                 Vector6d plk_j = Utility::plk_to_pose(it->line_plucker, Rji, tji);
+    //                 it->line_plucker = plk_j;
+    //             }
+    //         }
+    //     }
+    // }
 }
 
 void FeatureManager::removeBack()
@@ -741,24 +741,24 @@ void FeatureManager::removeBack()
         }
     }
 
-    if(USELINE){
-        for (auto it = feature_line.begin(), it_next = feature_line.begin();
-         it != feature_line.end(); it = it_next)
-        {
-            it_next++;
+    // if(USELINE){
+    //     for (auto it = feature_line.begin(), it_next = feature_line.begin();
+    //      it != feature_line.end(); it = it_next)
+    //     {
+    //         it_next++;
 
-            // 如果这个特征不是在窗口里最老关键帧上观测到的，由于窗口里移除掉了一个帧，所有其他特征对应的初始化帧id都要减1左移
-            // 例如： 窗口里有 0,1,2,3,4 一共5个关键帧，特征f2在第2帧上三角化的， 移除掉第0帧以后， 第2帧在窗口里的id就左移变成了第1帧，这是很f2的start_frame对应减1
-            if (it->start_frame != 0)
-                it->start_frame--;
-            else
-            {
-                it->feature_line_per_frame.erase(it->feature_line_per_frame.begin());  // 删掉特征ft在这个图像帧上的观测量
-                if (it->feature_line_per_frame.size() == 0)                       // 如果没有其他图像帧能看到这个特征ft了，那就直接删掉它
-                    feature_line.erase(it);
-            }
-        }
-    }
+    //         // 如果这个特征不是在窗口里最老关键帧上观测到的，由于窗口里移除掉了一个帧，所有其他特征对应的初始化帧id都要减1左移
+    //         // 例如： 窗口里有 0,1,2,3,4 一共5个关键帧，特征f2在第2帧上三角化的， 移除掉第0帧以后， 第2帧在窗口里的id就左移变成了第1帧，这是很f2的start_frame对应减1
+    //         if (it->start_frame != 0)
+    //             it->start_frame--;
+    //         else
+    //         {
+    //             it->feature_line_per_frame.erase(it->feature_line_per_frame.begin());  // 删掉特征ft在这个图像帧上的观测量
+    //             if (it->feature_line_per_frame.size() == 0)                       // 如果没有其他图像帧能看到这个特征ft了，那就直接删掉它
+    //                 feature_line.erase(it);
+    //         }
+    //     }
+    // }
     
 }
 
@@ -782,26 +782,26 @@ void FeatureManager::removeFront(int frame_count)
                 feature.erase(it);
         }
     }
-    if(USELINE){
-        for (auto it = feature_line.begin(), it_next = feature_line.begin(); it != feature_line.end(); it = it_next)
-        {
-            it_next++;
+    // if(USELINE){
+    //     for (auto it = feature_line.begin(), it_next = feature_line.begin(); it != feature_line.end(); it = it_next)
+    //     {
+    //         it_next++;
 
-            if (it->start_frame == frame_count)  // 由于要删去的是第frame_count-1帧，最新这一帧frame_count的id就变成了i-1
-            {
-                it->start_frame--;
-            }
-            else
-            {
-                int j = WINDOW_SIZE - 1 - it->start_frame;    // j指向第i-1帧
-                if (it->endFrame() < frame_count - 1)
-                    continue;
-                it->feature_line_per_frame.erase(it->feature_line_per_frame.begin() + j);   // 删掉特征ft在这个图像帧上的观测量
-                if (it->feature_line_per_frame.size() == 0)                            // 如果没有其他图像帧能看到这个特征ft了，那就直接删掉它
-                    feature_line.erase(it);
-            }
-        }
-    }
+    //         if (it->start_frame == frame_count)  // 由于要删去的是第frame_count-1帧，最新这一帧frame_count的id就变成了i-1
+    //         {
+    //             it->start_frame--;
+    //         }
+    //         else
+    //         {
+    //             int j = WINDOW_SIZE - 1 - it->start_frame;    // j指向第i-1帧
+    //             if (it->endFrame() < frame_count - 1)
+    //                 continue;
+    //             it->feature_line_per_frame.erase(it->feature_line_per_frame.begin() + j);   // 删掉特征ft在这个图像帧上的观测量
+    //             if (it->feature_line_per_frame.size() == 0)                            // 如果没有其他图像帧能看到这个特征ft了，那就直接删掉它
+    //                 feature_line.erase(it);
+    //         }
+    //     }
+    // }
 }
 
 double FeatureManager::compensatedParallax2(const FeaturePerId &it_per_id, int frame_count)

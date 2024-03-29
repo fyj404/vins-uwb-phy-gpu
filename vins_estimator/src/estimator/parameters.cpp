@@ -220,7 +220,7 @@ void readParameters(std::string config_file)
         printf("no imu, fix extrinsic param; no time offset calibration\n");
     }
     USE_LOOSE=0;
-    USE_KIN=0;
+    USE_KIN=1;
     USELINE=0;
     USE_UWB=1;
     SIM_UWB=1;
@@ -229,7 +229,7 @@ void readParameters(std::string config_file)
     MULAGENT=0;
     DEPEND=1;
     AGENT_NUMBER=fsSettings["agent_number"];
-    SIM_UE=1;
+    SIM_UE=0;
     if(AGENT_NUMBER==1){
         uwbNum=3,lowNum=0;
     }

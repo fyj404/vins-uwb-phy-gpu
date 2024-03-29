@@ -25,7 +25,6 @@ using namespace Eigen;
 #include <eigen3/Eigen/Geometry>
 #include "parameters.h"
 #include "../utility/tic_toc.h"
-#include "../featureTracker/feature_tracker_line.h"
 class FeaturePerFrame
 {
   public:

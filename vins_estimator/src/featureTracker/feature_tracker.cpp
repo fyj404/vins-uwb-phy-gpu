@@ -312,7 +312,7 @@ map<int, vector<pair<int, Eigen::Matrix<double, 7, 1>>>> FeatureTracker::trackIm
 
         ROS_DEBUG("add feature begins");
         TicToc t_a;
-        addPoints();
+        //addPoints();
         // ROS_DEBUG("selectFeature costs: %fms", t_a.toc());
         // printf("selectFeature costs: %fms\n", t_a.toc());
     }

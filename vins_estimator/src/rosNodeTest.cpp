@@ -194,19 +194,19 @@ void feature_callback(const sensor_msgs::PointCloudConstPtr &feature_msg)
 
 
 int first_uwb=0;
-// Eigen::Vector3d anchor_create_pos[5]={
-//     Eigen::Vector3d(-4.17,-4.35,1.38),
-//     Eigen::Vector3d(2.93,-3.65,1.3),
-//     Eigen::Vector3d(2.76,1.12,1.59),
-//     Eigen::Vector3d(-4.48,1.17,1.14)
-// };
-
 Eigen::Vector3d anchor_create_pos[5]={
-    Eigen::Vector3d(-38.17,-34.35,1.38),
-    Eigen::Vector3d(32.93,-36.65,3.3),
-    Eigen::Vector3d(38.76,46.12,1.59),
-    Eigen::Vector3d(-34.48,31.17,1.14)
+    Eigen::Vector3d(-4.17,-4.35,1.38),
+    Eigen::Vector3d(2.93,-3.65,1.3),
+    Eigen::Vector3d(2.76,1.12,1.59),
+    Eigen::Vector3d(-4.48,1.17,1.14)
 };
+
+// Eigen::Vector3d anchor_create_pos[5]={
+//     Eigen::Vector3d(-38.17,-34.35,1.38),
+//     Eigen::Vector3d(32.93,-36.65,3.3),
+//     Eigen::Vector3d(38.76,46.12,1.59),
+//     Eigen::Vector3d(-34.48,31.17,1.14)
+// };
 const int ANCHORNUMBER=4;
 double getNoiseRandomValue(double dis,Eigen::Vector3d eul)
 {
@@ -327,8 +327,8 @@ void ground_truth_callback_2(const geometry_msgs::PoseStampedConstPtr &msg,int i
                 
             }
         }
-        pub_range_raw.publish(raw);
-        pub_range_data.publish(data);
+        //pub_range_raw.publish(raw);
+        //pub_range_data.publish(data);
     }
     if(global_pose)
     {

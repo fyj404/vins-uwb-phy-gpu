@@ -31,20 +31,16 @@ find_package(Eigen3)
 include_directories(
   ${catkin_INCLUDE_DIRS}
   ${EIGEN3_INCLUDE_DIR}
-  /home/f404/catkin_tmp/src/VINS-Fusion/vins_estimator/src/featureTracker/line_descriptor/include
+  ${OpenCV_INCLUDE_DIRS}
 )
 
 catkin_package()
-
+message(STATUS "OpenCV library status:")
+message(STATUS "    version: ${OpenCV_VERSION}")
+message(STATUS "    libraries: ${OpenCV_LIBS}")
+message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
+message(STATUS "    catkin libraries: ${catkin_LIBRARIES}")
 add_library(vins_lib
-    src/featureTracker/line_descriptor/src/binary_descriptor_custom.cpp
-    src/featureTracker/line_descriptor/src/binary_descriptor_matcher.cpp
-    src/featureTracker/line_descriptor/src/bitarray_custom.hpp
-    src/featureTracker/line_descriptor/src/bitops_custom.hpp
-    src/featureTracker/line_descriptor/src/draw_custom.cpp
-    src/featureTracker/line_descriptor/src/LSDDetector_custom.cpp
-    src/featureTracker/line_descriptor/src/precomp_custom.hpp
-    src/featureTracker/line_descriptor/src/types_custom.hpp
     src/estimator/parameters.cpp
     src/estimator/estimator.cpp
     src/estimator/feature_manager.cpp
@@ -64,7 +60,7 @@ add_library(vins_lib
     src/initial/initial_sfm.cpp
     src/initial/initial_ex_rotation.cpp
     src/featureTracker/feature_tracker.cpp
-    src/featureTracker/feature_tracker_line.cpp)
+)
 target_link_libraries(vins_lib ${catkin_LIBRARIES} ${OpenCV_LIBS} ${CERES_LIBRARIES})
 
 
@@ -80,15 +76,3 @@ target_link_libraries(kitti_gps_test vins_lib)
 add_executable(uwb_node src/uwbNode.cpp)
 target_link_libraries(uwb_node vins_lib) 
 
-add_executable(loose_node src/loose_node.cpp)
-target_link_libraries(loose_node vins_lib) 
-
-
-add_executable(cent_node src/centNode.cpp)
-target_link_libraries(cent_node vins_lib) 
-
-add_executable(est_uwb src/est_uwb.cpp)
-target_link_libraries(est_uwb vins_lib) 
-
-add_executable(dataNode src/dataNode.cpp)
-target_link_libraries(dataNode vins_lib) 
