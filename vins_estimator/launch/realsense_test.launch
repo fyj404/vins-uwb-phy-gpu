@@ -34,15 +34,10 @@
     " /> -->
     <!-- <node name="rvizvisualisation" pkg="rviz" type="rviz" output="log" args="-d /home/f404/catkin_ws/src/VINS-Fusion/config/multi_agent_rviz.rviz" /> -->
     <node pkg="rosbag" type="record" name="bag_record" output="log" args="
-    /ag3/vins_estimator/imu_propagate /ag3/vins_estimator/imu_propagate_noworld /vrpn_client_node/ag3/pose
-    /ag2/vins_estimator/imu_propagate /ag2/vins_estimator/imu_propagate_noworld /vrpn_client_node/ag2/pose
     /ag1/vins_estimator/imu_propagate /ag1/vins_estimator/imu_propagate_noworld
     /vrpn_client_node/ag1/pose
-    /vrpn_client_node/ag0/pose
     /vrpn_client_node/anchor_Marker1/pose
-    /vrpn_client_node/anchor_Marker2/pose
-    /vrpn_client_node/anchor_Marker3/pose
-    /vrpn_client_node/anchor_Marker4/pose
+    /ag1/vins_estimator/odometry
     -o /home/ros/" />
     
 

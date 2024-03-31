@@ -54,8 +54,6 @@ class Estimator
     void inputImage(double t, const cv::Mat &_img, const cv::Mat &_img1 = cv::Mat());
     void processIMU(double t, double dt, const Vector3d &linear_acceleration, const Vector3d &angular_velocity);
     void processImage(const map<int, vector<pair<int, Eigen::Matrix<double, 7, 1>>>> &image, const double header);
-    void processImage(const map<int, vector<pair<int, Eigen::Matrix<double, 7, 1>>>> &image,
-    const map<int, vector<pair<int, Vector4d>>> &image_line, const double header);
     void processMeasurements();
     void changeSensorType(int use_imu, int use_stereo);
 
@@ -84,9 +82,6 @@ class Estimator
     void fastPredictIMU(double t, Eigen::Vector3d linear_acceleration, Eigen::Vector3d angular_velocity);
     bool IMUAvailable(double t);
     void initFirstIMUPose(vector<pair<double, Eigen::Vector3d>> &accVector);
-    void onlyLineOpt();   // 三角化以后，优化一把
-    void optimizationwithLine();
-    void double2vector2();
     void inputRange(int id,double t,double dis);
     bool getRange(int id,double t,double &dis);
     void getPoseAndUWB(int &tot, std::map<double, int> &mp);

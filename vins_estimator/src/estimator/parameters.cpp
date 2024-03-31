@@ -224,7 +224,7 @@ void readParameters(std::string config_file)
     USELINE=0;
     USE_UWB=1;
     SIM_UWB=1;
-    imu_delta_fre=3;
+    imu_delta_fre=2;
     IMU_SAEM_FRE=1;
     MULAGENT=0;
     DEPEND=1;

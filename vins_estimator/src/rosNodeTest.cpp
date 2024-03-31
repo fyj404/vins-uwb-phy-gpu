@@ -70,8 +70,10 @@ cv::Mat getImageFromMsg(const sensor_msgs::ImageConstPtr &img_msg)
 // extract images with same timestamp from two topics
 void sync_process()
 {
+    int rt=0;
     while(1)
     {
+        
         if(STEREO)
         {
             cv::Mat image0, image1;
@@ -106,7 +108,11 @@ void sync_process()
             }
             m_buf.unlock();
             if(!image0.empty())
-                estimator.inputImage(time, image0, image1);
+            {
+                rt^=1;
+                if(rt==1)
+                    estimator.inputImage(time, image0, image1);
+            }
         }
         else
         {
